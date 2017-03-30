@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
+- Add `present?`, `empty?` methods
+- Add `dig`, `dig?` to `JSON::Any`, `YAML::Any`
+
 ### Changed
 ### Deprecated
 ### Removed
