@@ -7,15 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Added
-- Add `present?`, `empty?` methods
-- Add `dig`, `dig?` to `JSON::Any`, `YAML::Any`
-
 ### Changed
 ### Deprecated
 ### Removed
 ### Fixed
 ### Security
 
-## 0.1.0 - 2017-04-01
+## 0.1.0 - 2017-03-31
+
+### Added
+- Add `present?`, `empty?` methods
+- Add `dig`, `dig?` to `JSON::Any`, `YAML::Any`
 
 [Unreleased]: https://github.com/metacortex/saccharin/compare/v0.1.0...HEAD
