@@ -1,0 +1,9 @@
+name: saccharin
+version: 0.1.0
+
+authors:
+  - metacortex <0@measurechina.io>
+
+crystal: 0.21.1
+
+license: MIT
