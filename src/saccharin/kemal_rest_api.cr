@@ -40,25 +40,6 @@ module Saccharin
       end
     end
 
-    # show
-    get "/{{ path.id }}/:id" do |env|
-      begin
-        %item = {{ model.id }}.find_by_id(env.params.url["id"])
-        Saccharin::APIResponseHelper.json_response_success(
-          env,
-          "okay",
-          %item.to_json(mode: "detail")
-        )
-      rescue ex : Exception
-        Saccharin::APIResponseHelper.json_response_error(
-          env,
-          "error",
-          ex.class.to_s,
-          ex.message
-        )
-      end
-    end
-
     # create
     post "/{{ path.id }}" do |env|
       begin
@@ -80,9 +61,66 @@ module Saccharin
       end
     end
 
+    # show
+    get "/{{ path.id }}/:id" do |env|
+      begin
+        %item = {{ model.id }}.find_by_id(env.params.url["id"])
+        Saccharin::APIResponseHelper.json_response_success(
+          env,
+          "okay",
+          %item.to_json(mode: "detail")
+        )
+      rescue ex : Exception
+        Saccharin::APIResponseHelper.json_response_error(
+          env,
+          "error",
+          ex.class.to_s,
+          ex.message
+        )
+      end
+    end
+
     # update
+    put "/{{ path.id }}/:id" do |env|
+      begin
+        %item = {{ model.id }}.find_by_id(env.params.url["id"])
+        %item.assign_attributes(env.params.json)
+        changeset = %item.save(true)
+        Saccharin::APIResponseHelper.json_response_success(
+          env,
+          "okay",
+          changeset.instance.to_json
+        )
+      rescue ex : Exception
+        Saccharin::APIResponseHelper.json_response_error(
+          env,
+          "error",
+          ex.class.to_s,
+          ex.message
+        )
+      end
+    end
 
     # destroy
+    delete "/{{ path.id }}/:id" do |env|
+      begin
+        %id = env.params.url["id"]
+        %item = {{ model.id }}.find_by_id(%id)
+        %item.destroy
+        Saccharin::APIResponseHelper.json_response_success(
+          env,
+          "okay",
+          { id: %id }
+        )
+      rescue ex : Exception
+        Saccharin::APIResponseHelper.json_response_error(
+          env,
+          "error",
+          ex.class.to_s,
+          ex.message
+        )
+      end
+    end
 
   end
 end
