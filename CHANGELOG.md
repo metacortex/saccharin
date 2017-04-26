@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Add `_LOG`, `_LOG_PROPS` helpers
-- Add kemal REST API macro
+- Add kemal REST API macro `rest_helper`
 
 ### Changed
 - Support crystal 0.22.0
