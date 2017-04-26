@@ -1,21 +1,21 @@
 require "file_utils"
 
 module Saccharin
-  module Logger
+  class Logger
     class LogFile
       begin
         FileUtils.mkdir("log")
       rescue ex : Errno
       end
 
-      INSTANCE = File.new("log/#{ENV["APP_ENV"]}.log", "a")
+      INSTANCE = File.new("log/#{ENV["APP_ENV"]? || "development"}.log", "a")
 
       def self.instance
         INSTANCE
       end
     end
 
-    def _log(str)
+    def self.log(str)
       # STDIO
       puts str
 
@@ -31,7 +31,7 @@ end
 
 def _LOG(str)
   return if ENV["ENV"]? == "test"
-  Saccharin::Logger::_log(str)
+  Saccharin::Logger.log(str)
 end
 
 def _LOG_PROPS(props, padding : Int32 = 0)
@@ -44,6 +44,6 @@ def _LOG_PROPS(props, padding : Int32 = 0)
   end
 
   props.each do |k,v|
-    Saccharin::Logger::_log("#{prefix}#{k}: #{v}")
+    Saccharin::Logger.log("#{prefix}#{k}: #{v}")
   end
 end
