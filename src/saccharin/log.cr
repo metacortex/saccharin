@@ -31,7 +31,7 @@ end
 
 def _LOG(str)
   return if ENV["ENV"]? == "test"
-  _log(str)
+  Saccharin::Logger::_log(str)
 end
 
 def _LOG_PROPS(props, padding : Int32 = 0)
@@ -44,6 +44,6 @@ def _LOG_PROPS(props, padding : Int32 = 0)
   end
 
   props.each do |k,v|
-    _log("#{prefix}#{k}: #{v}")
+    Saccharin::Logger::_log("#{prefix}#{k}: #{v}")
   end
 end
