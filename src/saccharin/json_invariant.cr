@@ -1,10 +1,7 @@
 # invariant macro
 
 macro invariant_hash_key(hash, key, exception_class = "InvalidArgumentError")
-  %c = {{ hash.id }}[{{ key }}]?
-  if %c
-    %c
-  else
+  unless {{ hash.id }}[{{ key }}]?
     raise {{ exception_class.id }}.new(message: "{{ key.id }} is missing")
   end
 end
