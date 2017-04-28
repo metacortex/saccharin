@@ -20,6 +20,9 @@ module Saccharin
     end
   end
 
+  #
+  # Full CRUD
+  #
   macro rest_api(path, model)
     # index
     get "/{{ path.id }}" do |env|
@@ -119,6 +122,49 @@ module Saccharin
           ex.class.to_s,
           ex.message
         )
+      end
+    end
+
+    #
+    # Data query only REST
+    #
+    macro rest_api_read_only(path, model)
+      # index
+      get "/{{ path.id }}" do |env|
+        begin
+          %items = {{ model.id }}.find_all(env.params.query.to_h)
+          Saccharin::APIResponseHelper.json_response_success(
+            env,
+            "okay",
+            %items.map(&.to_json)
+          )
+        rescue ex : Exception
+          Saccharin::APIResponseHelper.json_response_error(
+            env,
+            "error",
+            ex.class.to_s,
+            ex.message
+          )
+        end
+      end
+
+      # show
+      get "/{{ path.id }}/:id" do |env|
+        begin
+          %item = {{ model.id }}.find_by_id(env.params.url["id"])
+          Saccharin::APIResponseHelper.json_response_success(
+            env,
+            "okay",
+            %item.to_json(mode: "detail")
+          )
+        rescue ex : Exception
+          Saccharin::APIResponseHelper.json_response_error(
+            env,
+            "error",
+            ex.class.to_s,
+            ex.message
+          )
+        end
       end
     end
 
