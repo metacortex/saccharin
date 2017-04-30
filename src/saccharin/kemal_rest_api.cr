@@ -31,7 +31,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %items.map(&.to_json)
+          %items.map(&.serialize)
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -52,7 +52,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          changeset.instance.to_json
+          changeset.instance.serialize
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -71,7 +71,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %item.to_json(mode: "detail")
+          %item.serialize(mode: "detail")
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -92,7 +92,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          changeset.instance.to_json
+          changeset.instance.serialize
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -126,7 +126,7 @@ module Saccharin
     end
   end
 
-  
+
   #
   # Data query only REST
   #
@@ -138,7 +138,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %items.map(&.to_json)
+          %items.map(&.serialize)
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -157,7 +157,7 @@ module Saccharin
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %item.to_json(mode: "detail")
+          %item.serialize(mode: "detail")
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
