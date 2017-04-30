@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add json invariant helpers `invariant_json_as_h`
 - Add json parser helpers `json_value_to_i32`, `json_value_to_i64`
 - Add kemal REST API macro `rest_api_read_only`
+- Add json compact format parser
 
 
 ## [0.2.0] - 2017-4-27
