@@ -2,6 +2,7 @@ module Saccharin
   class APIResponseHelper
     def self.json_response_success(env, code, data)
       env.response.content_type = "application/json"
+      env.response.headers["Access-Control-Allow-Origin"] = "*"
       {
         meta: { result: code },
         data: data,
@@ -10,6 +11,7 @@ module Saccharin
 
     def self.json_response_error(env, code, error, message)
       env.response.content_type = "application/json"
+      env.response.headers["Access-Control-Allow-Origin"] = "*"
 
       _LOG "** Error: #{error}"
       _LOG message
