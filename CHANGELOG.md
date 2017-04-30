@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Change resource data callback name to `serialize` from `to_json`
 
+### Added
+- Add CORS header to rest api macro
+
 
 ## [0.3.0] - 2017-4-28
 
