@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Add CORS header to rest api macro
+- Add OPTIONS CORS macro `options_cors`
 
 
 ## [0.3.0] - 2017-4-28

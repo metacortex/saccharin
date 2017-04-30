@@ -128,6 +128,16 @@ module Saccharin
     end
   end
 
+  #
+  # CORS
+  #
+  macro options_cors(path = "*")
+    options "/{{ path.id }}" do |env|
+      env.response.headers["Access-Control-Expose-Headers"] = "Authorization"
+      env.response.headers["Access-Control-Allow-Origin"] = "*"
+      env.response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE"
+    end
+  end
 
   #
   # Data query only REST
