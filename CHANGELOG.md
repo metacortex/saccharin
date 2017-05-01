@@ -13,6 +13,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 ### Security -->
 
+
+## [0.4.3] - 2017-5-1
+
+### Changed
+- `options_cors` allow referer host instead of *
+
+
 ## [0.4.0] - 2017-5-1
 
 ### Changed
@@ -49,7 +56,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add `present?`, `empty?` methods
 - Add `dig`, `dig?` to `JSON::Any`, `YAML::Any`
 
-[Unreleased]: https://github.com/metacortex/saccharin/compare/v0.4.0...HEAD
-[0.3.0]: https://github.com/metacortex/saccharin/compare/v0.3.6...v0.4.0
+[Unreleased]: https://github.com/metacortex/saccharin/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/metacortex/saccharin/compare/v0.4.0...v0.4.3
+[0.4.0]: https://github.com/metacortex/saccharin/compare/v0.3.6...v0.4.0
 [0.3.0]: https://github.com/metacortex/saccharin/compare/v0.2.0...v0.3.6
 [0.2.0]: https://github.com/metacortex/saccharin/compare/v0.1.0...v0.2.0

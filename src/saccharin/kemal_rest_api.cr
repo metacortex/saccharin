@@ -1,3 +1,5 @@
+require "uri"
+
 module Saccharin
   class APIResponseHelper
     def self.json_response_success(env, code, data)
@@ -133,8 +135,11 @@ module Saccharin
   #
   macro options_cors(path = "*")
     options "/{{ path.id }}" do |env|
+      uri = URI.parse "http://localhost:3000/users/new"
+      origin = [uri.host,uri.port].map(&.to_s).join(":")
+
       env.response.headers["Access-Control-Expose-Headers"] = "Authorization"
-      env.response.headers["Access-Control-Allow-Origin"] = "*"
+      env.response.headers["Access-Control-Allow-Origin"] = origin
       env.response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE"
     end
   end
