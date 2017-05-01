@@ -4,7 +4,14 @@ module Saccharin
   class APIResponseHelper
     def self.json_response_success(env, code, data)
       env.response.content_type = "application/json"
-      env.response.headers["Access-Control-Allow-Origin"] = "*"
+
+      origin = env.request.headers["Origin"]
+
+      env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
+      env.response.headers["Access-Control-Allow-Origin"] = origin
+      env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+      env.response.headers["Access-Control-Allow-Credentials"] = "true"
+
       {
         meta: { result: code },
         data: data,
@@ -13,7 +20,13 @@ module Saccharin
 
     def self.json_response_error(env, code, error, message)
       env.response.content_type = "application/json"
-      env.response.headers["Access-Control-Allow-Origin"] = "*"
+
+      origin = env.request.headers["Origin"]
+
+      env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
+      env.response.headers["Access-Control-Allow-Origin"] = origin
+      env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+      env.response.headers["Access-Control-Allow-Credentials"] = "true"
 
       _LOG "** Error: #{error}"
       _LOG message
@@ -135,12 +148,15 @@ module Saccharin
   #
   macro options_cors(path = "*")
     options "/{{ path.id }}" do |env|
-      uri = URI.parse "http://localhost:3000/users/new"
-      origin = [uri.host,uri.port].map(&.to_s).join(":")
+      origin = env.request.headers["Origin"]
 
-      env.response.headers["Access-Control-Expose-Headers"] = "Authorization"
+      env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
+      # env.response.headers["Access-Control-Expose-Headers"] = "Authorization"
       env.response.headers["Access-Control-Allow-Origin"] = origin
-      env.response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE"
+      env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+      env.response.headers["Access-Control-Allow-Credentials"] = "true"
+
+      env.response.status_code = 204
     end
   end
 
