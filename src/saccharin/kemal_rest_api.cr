@@ -47,6 +47,8 @@ module Saccharin
         %items = {{ model.id }}.find_all(env.params.query.to_h)
         %items = if %items.is_a? Array
           %items.map(&.serialize)
+        else
+          %items
         end
         Saccharin::APIResponseHelper.json_response_success(
           env,
@@ -173,6 +175,8 @@ module Saccharin
         %items = {{ model.id }}.find_all(env.params.query.to_h)
         %items = if %items.is_a? Array
           %items.map(&.serialize)
+        else
+          %items
         end
         Saccharin::APIResponseHelper.json_response_success(
           env,
