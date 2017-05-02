@@ -45,10 +45,13 @@ module Saccharin
     get "/{{ path.id }}" do |env|
       begin
         %items = {{ model.id }}.find_all(env.params.query.to_h)
+        %items = if %items.is_a? Array
+          %items.map(&.serialize)
+        end
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %items.map(&.serialize)
+          %items
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
@@ -168,10 +171,13 @@ module Saccharin
     get "/{{ path.id }}" do |env|
       begin
         %items = {{ model.id }}.find_all(env.params.query.to_h)
+        %items = if %items.is_a? Array
+          %items.map(&.serialize)
+        end
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
-          %items.map(&.serialize)
+          %items
         )
       rescue ex : Exception
         Saccharin::APIResponseHelper.json_response_error(
