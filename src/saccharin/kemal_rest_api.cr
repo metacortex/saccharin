@@ -2,13 +2,19 @@ require "uri"
 
 module Saccharin
   class APIResponseHelper
+    def self.get_request_origin(env)
+      if env.request.headers["Origin"]?
+        env.request.headers["Origin"]
+      else
+        env.request.headers["host"]
+      end
+    end
+
     def self.json_response_success(env, code, data)
       env.response.content_type = "application/json"
 
-      origin = env.request.headers["Origin"]
-
       env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
-      env.response.headers["Access-Control-Allow-Origin"] = origin
+      env.response.headers["Access-Control-Allow-Origin"] = get_request_origin(env)
       env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
       env.response.headers["Access-Control-Allow-Credentials"] = "true"
 
@@ -21,10 +27,8 @@ module Saccharin
     def self.json_response_error(env, code, error, message)
       env.response.content_type = "application/json"
 
-      origin = env.request.headers["Origin"]
-
       env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
-      env.response.headers["Access-Control-Allow-Origin"] = origin
+      env.response.headers["Access-Control-Allow-Origin"] = get_request_origin(env)
       env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
       env.response.headers["Access-Control-Allow-Credentials"] = "true"
 
@@ -153,11 +157,9 @@ module Saccharin
   #
   macro options_cors(path = "*")
     options "/{{ path.id }}" do |env|
-      origin = env.request.headers["Origin"]
-
       env.response.headers["Access-Control-Allow-Headers"] = "Origin,Authorization,Content-Type,Accept"
       # env.response.headers["Access-Control-Expose-Headers"] = "Authorization"
-      env.response.headers["Access-Control-Allow-Origin"] = origin
+      env.response.headers["Access-Control-Allow-Origin"] = Saccharin::APIResponseHelper.get_request_origin(env)
       env.response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
       env.response.headers["Access-Control-Allow-Credentials"] = "true"
 

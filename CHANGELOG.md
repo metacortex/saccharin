@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Security -->
 
 
+## [0.4.7] - 2017-5-9
+
+### Fixed
+- use request.headers `host` for cors
+
+
 ## [0.4.3] - 2017-5-1
 
 ### Changed
