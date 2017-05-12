@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Security -->
 
 
+## [0.4.8] - 2017-5-12
+
+### Added
+- parse array data for kemal env.params.query `parse_request_params`
+
+
 ## [0.4.7] - 2017-5-9
 
 ### Fixed

@@ -39,6 +39,26 @@ module Saccharin
         meta: { result: code, error: error, message: message },
       }.to_json
     end
+
+    def self.parse_request_params(opts)
+      h = Hash(String, String).new
+
+      opts.each do |k, v|
+        if k.match(/\[\]$/)
+          array_key = k.gsub(/\[\]$/, "")
+
+          unless h[array_key]?
+            h[array_key] = opts.fetch_all(k).join(",")
+          end
+        else
+          unless h[k]?
+            h[k] = opts[k]
+          end
+        end
+      end
+
+      h
+    end
   end
 
   #
@@ -48,7 +68,9 @@ module Saccharin
     # index
     get "/{{ path.id }}" do |env|
       begin
-        %items = {{ model.id }}.find_all(env.params.query.to_h)
+        %items = {{ model.id }}.find_all(
+          Saccharin::APIResponseHelper.parse_request_params(env.params.query)
+        )
         %items = if %items.is_a? Array
           %items.map(&.serialize)
         else
@@ -174,7 +196,9 @@ module Saccharin
     # index
     get "/{{ path.id }}" do |env|
       begin
-        %items = {{ model.id }}.find_all(env.params.query.to_h)
+        %items = {{ model.id }}.find_all(
+          Saccharin::APIResponseHelper.parse_request_params(env.params.query)
+        )
         %items = if %items.is_a? Array
           %items.map(&.serialize)
         else
