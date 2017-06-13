@@ -239,4 +239,27 @@ module Saccharin
     end
   end
 
+  #
+  # Additional Action
+  #
+  macro rest_api_action(path, model, action_name)
+    post "/{{ path.id }}" do |env|
+      begin
+        %result = {{ model.id }}.{{ action_name.id }}(env.params.json)
+        Saccharin::APIResponseHelper.json_response_success(
+          env,
+          "okay",
+          %result
+        )
+      rescue ex : Exception
+        Saccharin::APIResponseHelper.json_response_error(
+          env,
+          "error",
+          ex.class.to_s,
+          ex.message
+        )
+      end
+    end
+  end
+
 end

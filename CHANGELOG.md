@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Security -->
 
 
+## [0.5.0] - 2017-6-13
+
+### Added
+- Add custom POST url macro `rest_api_action`
+
+
 ## [0.4.8] - 2017-5-12
 
 ### Added
