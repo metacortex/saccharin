@@ -282,4 +282,24 @@ module Saccharin
     end
   end
 
+  macro rest_api_action_get_file(path, model, action_name, content_type, file_name)
+    get "/{{ path.id }}" do |env|
+      begin
+        %result = {{ model.id }}.{{ action_name.id }}(env.params.query)
+
+        env.response.content_type = {{ content_type }}
+        env.response.headers["Content-Disposition"] = "attachment;filename=#{{{ file_name }}}"
+
+        %result
+      rescue ex : Exception
+        Saccharin::APIResponseHelper.json_response_error(
+          env,
+          "error",
+          ex.class.to_s,
+          ex.message
+        )
+      end
+    end
+  end
+
 end
