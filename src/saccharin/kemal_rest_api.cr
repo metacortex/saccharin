@@ -245,7 +245,7 @@ module Saccharin
   macro rest_api_action(path, model, action_name)
     post "/{{ path.id }}" do |env|
       begin
-        %result = {{ model.id }}.{{ action_name.id }}(env.params.json)
+        %result = {{ model.id }}.{{ action_name.id }}(env.params.json, env.params)
         Saccharin::APIResponseHelper.json_response_success(
           env,
           "okay",
